@@ -6,7 +6,7 @@ namespace Language.Primitive
 {
     public class NonNumeric
     {
-        public static NonNumeric Instance
+        public unsafe static NonNumeric Instance
         {
             get
             {
@@ -30,6 +30,7 @@ namespace Language.Primitive
                 Console.WriteLine($"{monetaryNumber,20:C2} is equal to " + monetaryNumber.ToString("C2") + " monetaryNumber,20:C2 --> monetaryNumber = value, 20 is right-padding, and C2 is the format, for example C2 stands for only 2 decimal numbers");
                 string aa = null;
                 Console.WriteLine($"It's possible to assign null to a string {aa?.ToString()}");
+                MemoryAddressForAStringInHeap();
                 return null;
             }
         }
@@ -44,6 +45,19 @@ namespace Language.Primitive
             for (int i = 0; i < 65535; i++) appendingString += $"{i}:{(char)i} ";
             Console.WriteLine($"Concatenation with +=, efficiency: {DateTime.UtcNow.Subtract(start).TotalMilliseconds} ms");
 
+        }
+        private unsafe static void MemoryAddressForAStringInHeap()
+        {
+            string a;
+            a = "abcdef";
+            Console.WriteLine("String is a managed object, and it's the unique primitive that resides in Heap. String is immutable to keep the strenght of a stack object. Because this, string has no memory position (peculiarity of managed/heap type)");
+            fixed (char* p = a)
+            {
+                Console.WriteLine("Ptr: " + ((int)p).ToString());
+                Console.WriteLine("Len: " + (*((int*)p - 1) & 0x3fffffff).ToString());
+            }
+            Console.WriteLine(a);
+            Console.ReadLine();
         }
     }
 }
