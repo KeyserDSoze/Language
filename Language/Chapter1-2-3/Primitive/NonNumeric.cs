@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Language.Primitive
 {
+    //Chapter 1
     public class NonNumeric
     {
         public unsafe static NonNumeric Instance

@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Language.Primitive
 {
+    //Chapter 1
     /// <summary>
     /// <seealso cref="http://www.binaryconvert.com/"/> to have fun.
     /// </summary>
