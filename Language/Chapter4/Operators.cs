@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace Language.Chapter4
 {
@@ -73,9 +74,33 @@ namespace Language.Chapter4
                 //if you, unfortunately, must do an equality from two float or double, subtract two values and see if their difference is less than a tolerance (or use decimal type, not casting)
                 float tolerance = 0.1F;
                 Console.WriteLine($"doubleNumber1 vs doubleNumber2 with tolerance of {tolerance}F --> {doubleNumber1} {IsEqual(Math.Sqrt(Math.Pow(doubleNumber2 - doubleNumber1, 2)) < tolerance)} {doubleNumber2}");
+                //int divisionNotPossible = 4 / 0; //An integer or decimal is not divisible for 0.
+                Console.WriteLine($"Float 0 divided for 0: {0f / 0}");
+                Console.WriteLine($"Math.Sqrt(-1): {Math.Sqrt(-1)}");
+                Console.WriteLine($"Float 4f divided for 0: {4f / 0}");
+                Console.WriteLine($"Float -8f divided for 0: {-8f / 0}");
+                Console.WriteLine($"Float 3.402823E+38F for 2f (overflowing): {3.402823E+38F * 2F}");
+                Console.WriteLine($"Float 4f divided for 0 is equal to Float 3.402823E+38F for 2f: {4f / 0 == 3.402823E+38F * 2F}");
+                //It's possible to assign with "compound assignment"
+                int valueX = 0;
+                valueX += 2; //like valueX = valueX + 2;
+                Console.WriteLine($"valueX: {valueX}");
+                valueX /= 1;
+                //post-increment
+                Console.WriteLine($"{valueX} - {valueX++} - {valueX++}");
+                //pre-increment
+                Console.WriteLine($"{valueX} - {++valueX} - {++valueX} - {valueX}");
+                //post-increment with method
+                Console.WriteLine($"{PreIncrement(ref valueX)} - {PostIncrement(ref valueX)} - {PostIncrement(ref valueX)} - {PreIncrement(ref valueX)}");
+                Interlocked.Increment(ref valueX);
+                Console.WriteLine($"Interlocked increment {valueX}");
+                Interlocked.Decrement(ref valueX);
+                Console.WriteLine($"Interlocked decrement {valueX}");
                 return null;
             }
         }
+        private static int PostIncrement(ref int x) => x++;
+        private static int PreIncrement(ref int x) => ++x;
         private static int A() => 1;
         private static int B() => 2;
         private static int C() => 3;
