@@ -2,25 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Language.Keywords
+namespace Language.Chapter02.Keywords
 {
     //Chapter 2
-    public class CheckedUnchecked
+    public class CheckedUnchecked : ILanguage
     {
-        public static CheckedUnchecked Instance
+        public void DoWork()
         {
-            get
+            unchecked
             {
-                unchecked
-                {
-                    MakeCheck();
-                    int maxValue = int.MaxValue;
-                    maxValue = maxValue + 1;
-                    Console.WriteLine($"In unchecked: {int.MaxValue} + 1 is: {maxValue}, furthermore operator ++ (maxValue++) would have checked the int.MaxValue and it wouldn't work");
-                    byte b = (byte)int.MaxValue;
-                    Console.WriteLine($"In unchecked int.MaxValue casts to byte is possible: {b}"); 
-                }
-                return null;
+                MakeCheck();
+                int maxValue = int.MaxValue;
+                maxValue = maxValue + 1;
+                Console.WriteLine($"In unchecked: {int.MaxValue} + 1 is: {maxValue}, furthermore operator ++ (maxValue++) would have checked the int.MaxValue and it wouldn't work");
+                byte b = (byte)int.MaxValue;
+                Console.WriteLine($"In unchecked int.MaxValue casts to byte is possible: {b}");
             }
         }
         public static void MakeCheck()

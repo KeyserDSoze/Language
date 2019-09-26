@@ -1,16 +1,36 @@
-﻿using System;
+﻿using Language.Chapter01.Primitive;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Language.ConsoleApp.Runner
 {
     class Program
     {
+        private static ChapterReader Reader = new ChapterReader();
         static void Main(string[] args)
         {
-            //var x = Language.Primitive.Numeric.Instance;
-            //var y = Language.Primitive.NonNumeric.Instance;
-            //var z = Language.Keywords.CheckedUnchecked.Instance;
-            var t = Language.Chapter4.Operators.Instance;
-            Console.ReadLine();
+           
+            string result = Reader.WhatDoYouWantToSeeInAction();
+            if (result == "exit")
+                return;
+            do
+            {
+                try
+                {
+                    Reader.DoWork(int.Parse(result));
+                    Console.Write("Press any button to continue");
+                    Console.ReadLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.InnerException?.Message);
+                    Console.Write("Press any button to continue");
+                    Console.ReadLine();
+                }
+            } while ((result = Reader.WhatDoYouWantToSeeInAction()) != "exit");
         }
     }
 }
