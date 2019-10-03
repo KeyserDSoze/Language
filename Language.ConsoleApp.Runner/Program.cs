@@ -10,27 +10,24 @@ namespace Language.ConsoleApp.Runner
     class Program
     {
         private static ChapterReader Reader = new ChapterReader();
+        private static string Result = string.Empty;
         static void Main(string[] args)
         {
-           
-            string result = Reader.WhatDoYouWantToSeeInAction();
-            if (result == "exit")
-                return;
-            do
+            while ((Result = Reader.WhatDoYouWantToSeeInAction()) != "exit")
             {
                 try
                 {
-                    Reader.DoWork(int.Parse(result));
+                    Reader.DoWork(int.Parse(Result));
                     Console.Write("Press any button to continue");
                     Console.ReadLine();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.InnerException?.Message);
+                    Console.WriteLine(ex.InnerException?.Message ?? ex.Message);
                     Console.Write("Press any button to continue");
                     Console.ReadLine();
                 }
-            } while ((result = Reader.WhatDoYouWantToSeeInAction()) != "exit");
+            }
         }
     }
 }
