@@ -11,6 +11,7 @@ namespace Language.ConsoleApp.Runner
     {
         private static ChapterReader Reader = new ChapterReader();
         private static string Result = string.Empty;
+        private static int? contentId = null;
         static void Main(string[] args)
         {
             while ((Result = Reader.WhatDoYouWantToSeeInAction()) != "exit")
