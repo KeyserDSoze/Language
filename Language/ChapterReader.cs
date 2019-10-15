@@ -13,7 +13,7 @@ namespace Language
         public ChapterReader()
         {
             this.Languages = Assembly.GetAssembly(this.GetType()).GetTypes()
-                .Where(x => x.GetInterface("ILanguage") != null)
+                .Where(x => x.GetInterface(nameof(ILanguage)) != null)
                 .OrderBy(x => x.FullName)
                 .Select(x => Activator.CreateInstance(x) as ILanguage)
                 .ToList();
